@@ -1,0 +1,26 @@
+{
+  "name": "canvas-colorchart",
+  "version": "1.0.0",
+  "description": "a standalone color graph widget",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mapbox/canvas-colorchart.git"
+  },
+  "keywords": [
+    "canvas",
+    "color",
+    "chart",
+    "graph",
+    "gradient"
+  ],
+  "author": "Tom MacWright",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mapbox/canvas-colorchart/issues"
+  },
+  "homepage": "https://github.com/mapbox/canvas-colorchart"
+}
