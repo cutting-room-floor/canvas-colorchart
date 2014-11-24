@@ -1,8 +1,7 @@
 module.exports = canvasLineChart;
-
 // var elem = document.createElement('canvas');
 //setInterval(function() {
-// canvasLineChart(elem, [[10 * (Math.sin(Date.now() / 1000) + 1), '#f00'], [20, '#0f0']], [20, '#FF0000']);
+// canvasLineChart(elem, [[10 * (Math.sin(Date.now() / 1000) + 1), 'rgba(0, 0, 0, 0.2)'], [20, '#0f0']], [20, '#FF0000']);
 //}, 100);
 //=elem
 
@@ -20,18 +19,19 @@ function canvasLineChart(c, data, marker) {
       return (_ / 20);
     }
 
+    ctx.fillStyle = '#fff';
+    [width - chartHeight / 2, chartHeight / 2].forEach(function(offset) {
+        ctx.beginPath();
+        ctx.arc(offset, chartHeight/2 - 1, chartHeight/2 - 1, 0, 2 * Math.PI, false);
+        ctx.fill();
+        ctx.stroke();
+    });
+
+    ctx.fillRect(chartHeight/2, 1, width - chartHeight, chartHeight - 2);
+
     ctx.fillStyle = '#000';
-    ctx.rect(chartHeight/2, 0, width - chartHeight, chartHeight);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(chartHeight/2, chartHeight/2, chartHeight/2, 0, 2 * Math.PI, false);
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.arc(width - chartHeight/2, chartHeight/2, chartHeight/2, 0, 2 * Math.PI, false);
-    ctx.fill();
-    ctx.stroke();
+    ctx.fillRect(chartHeight/2, 0, width - chartHeight, 1);
+    ctx.fillRect(chartHeight/2, chartHeight - 2, width - chartHeight, 1);
     ctx.beginPath();
 
     ctx.globalCompositeOperation = 'source-atop';
@@ -43,7 +43,7 @@ function canvasLineChart(c, data, marker) {
     ctx.rect(0, 0, width, chartHeight);
     ctx.fill();
 
-  	ctx.fillStyle = '#000';
+  	ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
   	for (var i = 0; i < 20; i++) {
       ctx.fillRect(xScale(i) * width, 0, 2, height);
   	}
