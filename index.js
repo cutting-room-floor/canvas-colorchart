@@ -16,7 +16,7 @@ function canvasLineChart(c, data, marker) {
 
     var ctx = c.getContext('2d');
     function xScale(_) {
-      return (_ / 20);
+        return (_ / 20);
     }
 
     ctx.fillStyle = '#fff';
@@ -37,16 +37,16 @@ function canvasLineChart(c, data, marker) {
     ctx.globalCompositeOperation = 'source-atop';
     var grd = ctx.createLinearGradient(0, 0, width, 0);
     data.forEach(function(data, i) {
-      grd.addColorStop(xScale(data[0]), data[1]);
+        grd.addColorStop(xScale(data[0]), data[1]);
     });
     ctx.fillStyle = grd;
     ctx.rect(0, 0, width, chartHeight);
     ctx.fill();
 
-  	ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
-  	for (var i = 0; i < 20; i++) {
-      ctx.fillRect(xScale(i) * width, 0, 2, height);
-  	}
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+    for (var i = 0; i < 20; i++) {
+        ctx.fillRect(xScale(i) * width, 0, 2, height);
+    }
 
     ctx.globalCompositeOperation = 'source-over';
 
