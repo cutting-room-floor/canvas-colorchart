@@ -9,7 +9,8 @@ function canvasColorChart(c, data, marker) {
     var width = 169 * 2;
     var height = 30 * 2;
     var chartHeight = 18 * 2;
-    var margin = 5;
+    var padding = 8;
+    var margin = (chartHeight / 2) - padding;
     c.width = width;
     c.height = height;
     c.style.width = width / 2 + 'px';
@@ -22,24 +23,32 @@ function canvasColorChart(c, data, marker) {
     function xScalePX(_) {
         return ~~Math.min(Math.max(0, ((_ / 20) * (width - (margin * 2))) + margin), width - margin);
     }
+
     ctx.fillStyle = '#fff';
-    [width - (chartHeight / 2) - margin, margin + chartHeight / 2].forEach(function(offset) {
+    ctx.fillRect(0, 0, width, chartHeight);
+
+    ctx.fillStyle = '#000';
+    [
+        { offset: margin, fill: data[0][1], counter: false },
+        { offset: width - margin, fill: data[data.length - 1][1], counter: true }
+    ].forEach(function(opts) {
         ctx.beginPath();
-        ctx.arc(offset, chartHeight/2 - 1, chartHeight/2 - 1, 0, 2 * Math.PI, false);
+        ctx.arc(opts.offset, (chartHeight / 2) + 1, margin - 1, Math.PI / 2, Math.PI * 1.5, opts.counter);
+        ctx.fillStyle = opts.fill;
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+        ctx.lineWidth = 2;
         ctx.fill();
         ctx.stroke();
     });
 
-    ctx.fillRect(chartHeight/2 + margin, 1, width - chartHeight - margin, chartHeight - 2);
-
-    ctx.fillStyle = '#000';
-    ctx.fillRect(chartHeight/2, 0, width - chartHeight, 1);
-    ctx.fillRect(chartHeight/2, chartHeight - 2, width - chartHeight, 1);
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    ctx.fillRect(margin, padding, width - (margin * 2), 2);
+    ctx.fillRect(margin, chartHeight - padding, width - (margin * 2), 2);
     ctx.beginPath();
 
     ctx.globalCompositeOperation = 'source-atop';
     ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 21; i++) {
         ctx.fillRect(xScalePX(i), 0, 2, height);
     }
 
@@ -48,27 +57,24 @@ function canvasColorChart(c, data, marker) {
         grd.addColorStop(xScale(data[0]), data[1]);
     });
     ctx.fillStyle = grd;
-    ctx.rect(0, 0, width, chartHeight);
+    ctx.rect(margin, padding + 2, width - (margin * 2), chartHeight - (padding * 2) - 2);
     ctx.fill();
 
     ctx.globalCompositeOperation = 'source-over';
 
     if (marker) {
         ctx.fillStyle = '#3bb2d0';
-        ctx.fillRect(xScalePX(marker[0]), 0, 3, height);
+        ctx.fillRect(xScalePX(marker[0]), 0, 3, chartHeight);
         var xAnchor = xScalePX(marker[0]);
 
-        var labelWidth = 230;
+        var labelWidth = marker[1].length * 12;
         var labelWidthH = labelWidth / 2;
 
         if (xAnchor < labelWidthH) xAnchor = labelWidthH;
         if (xAnchor > (width - labelWidthH)) xAnchor = width - labelWidthH - margin;
         ctx.fillStyle = '#3bb2d0';
-        ctx.fillRect(xAnchor - labelWidthH, chartHeight, labelWidth, height - chartHeight);
-        ctx.fillStyle = '#fff';
-        ctx.font = '20px sans-serif';
+        ctx.font = 'bold 20px monospace';
         ctx.textAlign = 'center';
-        ctx.fillText('' + marker[1], xAnchor, chartHeight + 18);
+        ctx.fillText('' + marker[1], xAnchor, chartHeight + 20);
     }
 }
-
