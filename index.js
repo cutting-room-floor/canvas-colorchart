@@ -21,7 +21,7 @@ function canvasColorChart(c, data, marker) {
         return (_ / 20);
     }
     function xScalePX(_) {
-        return ~~Math.min(Math.max(0, ((_ / 20) * (width - (margin * 2))) + margin), width - (margin * 2));
+        return ~~Math.min(Math.max(0, ((_ / 20) * (width - (margin * 2))) + margin), width - margin);
     }
 
     ctx.fillStyle = '#fff';
@@ -32,7 +32,6 @@ function canvasColorChart(c, data, marker) {
         { offset: margin, fill: data[0][1], counter: false },
         { offset: width - margin, fill: data[data.length - 1][1], counter: true }
     ].forEach(function(opts) {
-        console.log(data, opts);
         ctx.beginPath();
         ctx.arc(opts.offset, (chartHeight / 2) + 1, margin - 1, Math.PI / 2, Math.PI * 1.5, opts.counter);
         ctx.fillStyle = opts.fill;
@@ -49,7 +48,7 @@ function canvasColorChart(c, data, marker) {
 
     ctx.globalCompositeOperation = 'source-atop';
     ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 21; i++) {
         ctx.fillRect(xScalePX(i), 0, 2, height);
     }
 
@@ -65,7 +64,7 @@ function canvasColorChart(c, data, marker) {
 
     if (marker) {
         ctx.fillStyle = '#3bb2d0';
-        ctx.fillRect(xScalePX(marker[0]), 0, 3, height);
+        ctx.fillRect(xScalePX(marker[0]), 0, 3, chartHeight);
         var xAnchor = xScalePX(marker[0]);
 
         var labelWidth = marker[1].length * 12;
@@ -73,8 +72,6 @@ function canvasColorChart(c, data, marker) {
 
         if (xAnchor < labelWidthH) xAnchor = labelWidthH;
         if (xAnchor > (width - labelWidthH)) xAnchor = width - labelWidthH - margin;
-        ctx.fillStyle = '#fff';
-        ctx.fillRect(xAnchor - labelWidthH, chartHeight, labelWidth, height - chartHeight);
         ctx.fillStyle = '#3bb2d0';
         ctx.font = 'bold 20px monospace';
         ctx.textAlign = 'center';
