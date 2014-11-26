@@ -5,8 +5,8 @@ module.exports = canvasColorChart;
 //}, 100);
 //=elem
 
-function canvasColorChart(c, data, marker) {
-    var width = 140 * 2;
+function canvasColorChart(c, width, data, marker) {
+    width = width * 2;
     var height = 30 * 2;
     var chartHeight = 18 * 2;
     var padding = 8;

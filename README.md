@@ -8,4 +8,4 @@
 
 ## Usage
 
-    colorChart(element, [[x, color], ... ], [x, label]);
+    colorChart(element, width, [[x, color], ... ], [x, label]);
