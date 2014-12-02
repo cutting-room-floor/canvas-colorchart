@@ -27,6 +27,11 @@ function canvasColorChart(c, width, data, marker) {
     ctx.fillStyle = '#fff';
     ctx.fillRect(0, 0, width, chartHeight);
 
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    for (var i = 0; i < 21; i++) {
+        ctx.fillRect(xScalePX(i), 0, 2, chartHeight);
+    }
+
     ctx.fillStyle = '#000';
     [
         { offset: margin, fill: data[0][1], counter: false },
@@ -47,10 +52,6 @@ function canvasColorChart(c, width, data, marker) {
     ctx.beginPath();
 
     ctx.globalCompositeOperation = 'source-atop';
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-    for (var i = 0; i < 21; i++) {
-        ctx.fillRect(xScalePX(i), 0, 2, height);
-    }
 
     var grd = ctx.createLinearGradient(margin, 0, width - margin, 0);
     data.forEach(function(data, i) {
