@@ -24,15 +24,16 @@ function canvasColorChart(c, width, data, marker) {
         return ~~Math.min(Math.max(0, ((_ / 20) * (width - (margin * 2))) + margin), width - margin);
     }
 
-    ctx.fillStyle = '#fff';
+    ctx.fillStyle = 'transparent';
     ctx.fillRect(0, 0, width, chartHeight);
 
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
     for (var i = 0; i < 21; i++) {
-        ctx.fillRect(xScalePX(i), 0, 2, chartHeight);
+        ctx.fillRect(xScalePX(i), 0, 4, chartHeight);
     }
 
     ctx.fillStyle = '#000';
+    ctx.fillRect(margin, padding + 2, width - (margin * 2), chartHeight - (margin * 2) + 2);
     [
         { offset: margin, fill: data[0][1], counter: false },
         { offset: width - margin, fill: data[data.length - 1][1], counter: true }
@@ -40,7 +41,7 @@ function canvasColorChart(c, width, data, marker) {
         ctx.beginPath();
         ctx.arc(opts.offset, (chartHeight / 2) + 1, margin - 1, Math.PI / 2, Math.PI * 1.5, opts.counter);
         ctx.fillStyle = opts.fill;
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.1)';
+        ctx.strokeStyle = 'rgba(0,0,0,0.15)';
         ctx.lineWidth = 2;
         ctx.fill();
         ctx.stroke();
