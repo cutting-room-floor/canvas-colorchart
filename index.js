@@ -65,7 +65,7 @@ function canvasColorChart(c, width, data, marker) {
     ctx.globalCompositeOperation = 'source-over';
 
     if (marker) {
-        ctx.fillStyle = '#3bb2d0';
+        ctx.fillStyle = '#ddd';
         ctx.fillRect(xScalePX(marker[0]), 0, 3, chartHeight);
         var xAnchor = xScalePX(marker[0]);
 
@@ -74,7 +74,7 @@ function canvasColorChart(c, width, data, marker) {
 
         if (xAnchor < labelWidthH) xAnchor = labelWidthH;
         if (xAnchor > (width - labelWidthH)) xAnchor = width - labelWidthH - margin;
-        ctx.fillStyle = '#3bb2d0';
+        ctx.fillStyle = '#ddd';
         ctx.font = 'bold 20px monospace';
         ctx.textAlign = 'center';
         ctx.fillText('' + marker[1], xAnchor, chartHeight + 20);
